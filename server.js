@@ -30,7 +30,19 @@ function callback (){
 };
 
 // Initialize all route with a callback function
+app.get("/all", function(req, res){
+    res.send(projectData);
+});
 
 // Callback function to complete GET '/all'
 
 // Post Route
+app.post("/data", function(req, res) {
+	const newData = {
+		temperature: req.body.temperature,
+		date: req.body.date,
+		userResponse: req.body.userResponse
+	};
+	projectData = newData;
+	res.send(newData);
+});
