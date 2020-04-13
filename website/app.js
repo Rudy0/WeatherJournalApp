@@ -1,5 +1,5 @@
 /* Global Variables */
-let baseURL = "api.openweathermap.org/data/2.5/weather?";
+let baseURL = "api.openweathermap.org/data/2.5/weather?zip=";
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -12,36 +12,33 @@ const apiKey = "&appid=0252daeced35aad0d7a14eef14d3ced4";
 document.getElementById("generate").addEventListener("click", generateWeather);
 /* Function called by event listener */
 function generateWeather(){
-  addData().then(displayData);
+  addData()
+    .then(displayData);
 };
 
 const addData = async() => {
-  const temp = await getAPI();
+  const weather = await getApi();
   const feeling = document.getElementById("feelings").value;
-  const zip = document.getElementById("zip").value;
-  postData('/data', {zip:zip, feelings:feeling, date:newDate, weather:temp});
+  postData("/data", {date:newDate, temp:weather, feelings:feeling});
 };
 
 const displayData = async() => {
-  const allData = await getData();
+  const allData = await getData("/all");
   try {
     document.getElementById('date').innerHTML = `Date: ${allData.date}`;
-    document.getElementById('temp').innerHTML = `Temperature: ${allData.weather}`;
-    document.getElementById('content').innerHTML = `Feelings: ${allData.feelings}`;
+    document.getElementById('temp').innerHTML = `Temperature is : ${allData.temp}`;
+    document.getElementById('content').innerHTML = `You are feeling: ${allData.feelings}`;
     } catch(error) {
       console.log('error on displayData', error);
     };
 };
 
 /* Function to GET Web API Data*/
-const getAPI = async () => {
+const getApi = async () => {
   const zip = document.getElementById("zip").value;
-  const openWeather = await fetch(`${baseURL}zip=${zip}&units=imperial${apiKey}`, {
-      body: JSON.stringify(),
-  });
-
+  const weatherApi = await fetch(baseURL+zip+apiKey);
   try {
-      const weather = await openWeather.json();
+      const weather = await weatherApi.json();
       const temp = weather.main.temp;
       return temp;
   } catch(error) {
@@ -50,8 +47,7 @@ const getAPI = async () => {
 };
 
 /* Function to POST data */
-const postData = async ( url = '', data = {})=>{
-    console.log(data)
+const postData = async ( url = "", data = {})=>{
       const response = await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       credentials: 'same-origin', // include, *same-origin, omit
@@ -60,19 +56,18 @@ const postData = async ( url = '', data = {})=>{
       },
       body: JSON.stringify(data), // body data type must match "Content-Type" header        
     });
-  
       try {
         const newData = await response.json();
-        return newData
+        console.log(newData);
+        return newData;
       }catch(error) {
       console.log("error in postData", error);
-      // appropriately handle the error
       }
   };
 /* Function to GET Project Data */
 
-const getData = async ()=>{
-    const response = await fetch("/all");
+const getData = async (url="")=>{
+    const response = await fetch(url);
     try {
       const data = await response.json();
       return data;

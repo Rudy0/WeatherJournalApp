@@ -29,20 +29,18 @@ function callback (){
     console.log(`On port: ${port}`);
 };
 
-// Initialize all route with a callback function
+// Callback function to complete GET '/all'
 app.get("/all", function(req, res){
     res.send(projectData);
 });
 
-// Callback function to complete GET '/all'
-
 // Post Route
 app.post("/data", function(req, res) {
 	const newData = {
-		temperature: req.body.temperature,
+		temp: req.body.temp,
 		date: req.body.date,
-		userResponse: req.body.userResponse
+		feelings: req.body.feelings
 	};
-	projectData = newData;
-	res.send(newData);
+	projectData = newData; 
+	res.send(projectData);
 });
