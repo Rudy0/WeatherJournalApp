@@ -1,23 +1,35 @@
 body{
     background: #fffff8;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 #app{
     display: grid;
-    grid-auto-rows: minmax(150px, auto);
+    grid-auto-rows: minmax(130px, auto);
     /* grid-template-columns:  */
     height:100vh;
-    background: #f23557;
-    color: #f0d43a;
+    width: 700px;
+    margin: 0 auto;
+    background: rgba(13, 193, 206, 0.151);
+    color: #444;
     justify-content: center;
     grid-gap: 1em;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
+    border: 5px solid rgb(39, 5, 102);
+    border-top-left-radius: 25%;
+    border-top-right-radius: 25%;
+    border-bottom: none;
 }
 
 .holder{
-
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .entry{
@@ -41,7 +53,7 @@ body{
 }
 
 .headline {
-
+    font-size: 2em;
 }
 .title{
 
@@ -65,8 +77,8 @@ input{
 }
 
 button{
-    width: 400px;
-    height: 100px;
+    width: 300px;
+    height: 80px;
     background: #3b4a6b;
     color: #f0d43a;
     font-size: 26px;
@@ -83,6 +95,7 @@ textarea{
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
+    margin-bottom: 5px;
 }
 /* Reset style for HTML element on active to have no border*/
 input:focus,
