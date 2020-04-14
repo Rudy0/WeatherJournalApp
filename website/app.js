@@ -26,7 +26,7 @@ const displayData = async() => {
   const allData = await getData("/all");
   try {
     document.getElementById('date').innerHTML = `Date: ${allData.date}`;
-    document.getElementById('temp').innerHTML = `Temperature is : ${allData.temp}`;
+    document.getElementById('temp').innerHTML = `Temperature is : ${allData.temp}&#8451;`;
     document.getElementById('content').innerHTML = `You are feeling: ${allData.feelings}`;
     } catch(error) {
       console.log('error on displayData', error);
@@ -36,7 +36,7 @@ const displayData = async() => {
 /* Function to GET Web API Data*/
 const getApi = async () => {
   const zip = document.getElementById("zip").value;
-  const weatherApi = await fetch(`http://${baseURL}${zip}${apiKey}`);
+  const weatherApi = await fetch(`http://${baseURL}${zip}&units=metric${apiKey}`);
   try {
       const weather = await weatherApi.json();
       const temp = weather.main.temp;
