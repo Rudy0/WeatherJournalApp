@@ -1,5 +1,5 @@
 /* Global Variables */
-let baseURL = "api.openweathermap.org/data/2.5/weather?zip=";
+let baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -36,7 +36,7 @@ const displayData = async() => {
 /* Function to GET Web API Data*/
 const getApi = async () => {
   const zip = document.getElementById("zip").value;
-  const weatherApi = await fetch(`http://${baseURL}${zip}&units=metric${apiKey}`);
+  const weatherApi = await fetch(`${baseURL}${zip}&units=metric${apiKey}`);
   try {
       const weather = await weatherApi.json();
       const temp = weather.main.temp;
